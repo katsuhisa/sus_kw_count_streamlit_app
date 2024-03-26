@@ -44,6 +44,7 @@ def app():
         st.divider()
         st.subheader('🍀Step2. 評価対象の設定')
         text = ""
+        uploaded_file_name = ""
         
         if file_type == "PDF":
             uploaded_file = st.file_uploader("今回の評価対象のPDFファイルをアップロードしてください", type=["pdf"])
