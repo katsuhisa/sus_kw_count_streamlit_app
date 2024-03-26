@@ -1,0 +1,6 @@
+streamlit
+pandas
+plotly
+pdfminer.six
+beautifulsoup4
+requests
