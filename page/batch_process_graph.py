@@ -57,7 +57,10 @@ def app():
                 # スコアを含む新しいDataFrameを作成
                 score_df = pd.DataFrame(result_data, columns=['分類1', '分類2', '分類3', '分類4', 'スコア'])
                 st.markdown("### スコアの算定式")
-                st.markdown("| スコア = 段階 × 倍率")
+                code = """
+                        スコア = 段階 × 倍率
+                        """
+                st.code(code, language="python")
                 # st.dataframe(score_df.style.bar(subset=['スコア'], vmin=0, vmax=10, color='#5fba7d'))
                 
                 # 分類3ごとのスコアを集計
