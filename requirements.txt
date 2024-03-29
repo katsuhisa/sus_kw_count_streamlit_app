@@ -1,6 +1,7 @@
 streamlit
 pandas
-plotly
 pdfminer.six
-beautifulsoup4
 requests
+beautifulsoup4
+plotly
+pytz
