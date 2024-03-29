@@ -153,9 +153,10 @@ def your_pdf_processing_function(df, uploaded_file, text, uploaded_file_name):
             
             # 新しい段階を元のDataFrameに結合
             df_final = pd.merge(df, df_grouped[['分類3', '段階']], on='分類3', how='left')
+            df_final = df_final[['分類1', '分類2', '分類3', '分類4', '単語出現回数', '段階']]  # 不要な列を削除
 
-            display_final_dataframe(df_final)
-            download_buttons(df_final, uploaded_file_name)
+            display_final_dataframe(df_final, is_url=True)
+            download_buttons(df_final, uploaded_file_name, is_url=True)
 
 def your_urls_processing_function(df, all_texts, urls):
     all_counts = []
@@ -182,17 +183,23 @@ def your_urls_processing_function(df, all_texts, urls):
 
     # 新しい段階をもとのDataFrameに結合
     df_final = pd.merge(df, df_grouped[['分類3', '段階']], on='分類3', how='left')
+    df_final = df_final[['分類1', '分類2', '分類3', '分類4', '単語出現回数（合計）', '単語出現回数（個別）', '段階']]  # 不要な列を削除
 
     # 結果の表示とダウンロードボタンの配置
     display_final_dataframe(df_final, is_url=True)
     download_buttons(df_final, "evaluation_URLs")
 
-def download_buttons(df, file_name_prefix):
+def download_buttons(df, file_name_prefix, is_url):
     # 不要な列（単語出現回数_URL_x）を削除するための処理
     columns_to_remove = [col for col in df.columns if col.startswith('単語出現回数_URL_')]
     df_cleaned = df.drop(columns=columns_to_remove)
 
     # CSVファイルのダウンロードボタン
+    # ファイルタイプに応じてCSVを出力する列を変更
+    if is_url:
+        df = df[['分類1', '分類2', '分類3', '分類4', '単語出現回数（合計）', '単語出現回数（個別）', '段階']]
+    else:
+        df = df[['分類1', '分類2', '分類3', '分類4', '単語出現回数', '段階']]
     csv = df_cleaned.to_csv(index=False).encode('utf-8')
     jst = pytz.timezone('Asia/Tokyo')
     now = datetime.now(jst).strftime('%Y%m%d%H%M%S')
