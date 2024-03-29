@@ -5,6 +5,7 @@ from datetime import datetime
 import pytz
 import os
 import requests
+from bs4 import BeautifulSoup
 
 def app():
     st.title("一括でサステナ単語をカウント")
@@ -223,6 +224,11 @@ def create_txt_download(file_name_prefix, urls):
         file_name=txt_file_name,
         mime="text/plain",
     )
+
+def extract_text_from_url(url):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, "html.parser")
+    return soup.get_text()
 
 def display_final_dataframe(df_final, is_url=False):
     # 集計方法の説明
