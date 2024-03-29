@@ -155,8 +155,8 @@ def your_pdf_processing_function(df, uploaded_file, text, uploaded_file_name):
             df_final = pd.merge(df, df_grouped[['分類3', '段階']], on='分類3', how='left')
             df_final = df_final[['分類1', '分類2', '分類3', '分類4', '単語出現回数', '段階']]  # 不要な列を削除
 
-            display_final_dataframe(df_final, is_url=True)
-            download_buttons(df_final, uploaded_file_name, is_url=True)
+            display_final_dataframe(df_final, is_url=False)  # Falseに修正
+            download_buttons(df_final, uploaded_file_name, is_url=False)  # Falseに修正
 
 def your_urls_processing_function(df, all_texts, urls):
     all_counts = []
@@ -187,7 +187,7 @@ def your_urls_processing_function(df, all_texts, urls):
 
     # 結果の表示とダウンロードボタンの配置
     display_final_dataframe(df_final, is_url=True)
-    download_buttons(df_final, "evaluation_URLs")
+    download_buttons(df_final, "evaluation_URLs", is_url=True)
 
 def download_buttons(df, file_name_prefix, is_url):
     # 不要な列（単語出現回数_URL_x）を削除するための処理
