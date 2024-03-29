@@ -1,7 +1,5 @@
 # pages/batch_process.py
 import streamlit as st
-from services.text_extraction import extract_text_from_pdf, extract_text_from_url
-from services.keyword_count import count_keywords
 from services.create_bar_chart import create_bar_chart
 import pandas as pd
 from pdfminer.high_level import extract_text
